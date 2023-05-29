@@ -56,7 +56,7 @@ class DoublyLinkedList {
         const leader = this.traverseToindex(index-1)
         const follower = leader.next;
         leader.next = newNode;
-        newNode.previous = leader;
+        newNode.prev = leader;
         newNode.next = follower;
         follower.prev = newNode;
         this.length++;
