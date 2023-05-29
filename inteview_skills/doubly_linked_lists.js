@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-class LinkedList {
+class DoublyLinkedList {
     constructor(value){
         this.head ={
             value : 10,
-            next : null
+            next : null,
+            prev: null 
         }
     
     this.tail = this.head;
@@ -12,16 +13,18 @@ class LinkedList {
     }
 
     append(value){
-        const newNode = {value:value, next: null};
+        const newNode = {value:value, next: null, prev: null};
+        newNode.prev = this.tail;
         this.tail.next=newNode;
-        this.tail = this.tail.next;
+        this.tail = newNode;
         this.length++;
         return this
     }
 
     prepend(value){
-        const newNode = {value:value, next: null};
+        const newNode = {value:value, next: null, prev: null};
         newNode.next = this.head;
+        this.head.prev = newNode;
         this.head = newNode;
         this.length++;
         return this
@@ -47,13 +50,17 @@ class LinkedList {
         }
         const newNode = {
             value: value,
-            next: null
+            next: null,
+            prev: null
         };
         const leader = this.traverseToindex(index-1)
-        const holdingPointer = leader.next;
+        const follower = leader.next;
         leader.next = newNode;
-        newNode.next = holdingPointer;
+        newNode.previous = leader;
+        newNode.next = follower;
+        follower.prev = newNode;
         this.length++;
+        console.log(this)
         return this.printList();
     } 
 
@@ -78,9 +85,13 @@ class LinkedList {
 
 }
 
-const myLinkedList = new LinkedList(10);
-myLinkedList.append(5);
+const myLinkedList = new DoublyLinkedList(10);
+myLinkedList.prepend(1)
 myLinkedList.append(16);
-myLinkedList.prepend(1);
+console.log(myLinkedList.append(5));
+myLinkedList.insert(1,99)
 console.log(myLinkedList.printList());
-console.log(myLinkedList.insert(1,99));
+// myLinkedList.append(16);
+// myLinkedList.prepend(1);
+// console.log(myLinkedList.printList());
+// console.log(myLinkedList.insert(1,99));
