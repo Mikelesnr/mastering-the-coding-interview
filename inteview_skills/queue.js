@@ -32,6 +32,12 @@ class Queue {
     }
 
     dequeue(){
+        if(this.first == this.last){
+            this.first =null;
+            this.last = null;
+            this.length--;
+            return this;
+        }
         if(!this.length){
             return this.isEmpty()
         }
